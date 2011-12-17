@@ -59,5 +59,14 @@ namespace ApProg.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to load a hex file first....
+        /// </summary>
+        internal static string HexFileRequestMsg {
+            get {
+                return ResourceManager.GetString("HexFileRequestMsg", resourceCulture);
+            }
+        }
     }
 }

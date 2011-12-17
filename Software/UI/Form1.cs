@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using ApProg.Icsp;
+using ApProg.Properties;
 using ApProg.Utilities;
 
 namespace ApProg.UI
@@ -72,6 +73,12 @@ namespace ApProg.UI
 
         private void OnWriteDeviceClick(object sender, EventArgs e)
         {
+            if (!File.Exists(txtFile.Text))
+            {
+                MessageBox.Show(Resources.HexFileRequestMsg);
+                return;
+            }
+
             Memory memory = HexReader.ReadHexFile(txtFile.Text);
             
             // takes a bit longer so... (execute in background)
@@ -83,7 +90,6 @@ namespace ApProg.UI
 
         private void OnTextChanged(object sender, EventArgs e)
         {
-            //btnConnect.Enabled = !btnConnect.Enabled;
             txtMessage.Focus();
             txtMessage.SelectionStart = txtMessage.Text.Length;
             txtMessage.ScrollToCaret();
