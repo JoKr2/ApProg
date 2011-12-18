@@ -1,6 +1,6 @@
-﻿namespace ApProg.UI
+﻿namespace ApProg.UI.Views
 {
-    partial class Form1
+    partial class ProgrammerView
     {
         /// <summary>
         /// Required designer variable.
@@ -164,15 +164,14 @@
             this.txtMessage.TabIndex = 8;
             this.txtMessage.TextChanged += new System.EventHandler(this.OnTextChanged);
             // 
-            // Form1
+            // ProgrammerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(496, 294);
             this.Controls.Add(this.tableLayout);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
+            this.Name = "ProgrammerView";
+            this.Text = "ProgrammerView";
             this.tableLayout.ResumeLayout(false);
             this.tableLayout.PerformLayout();
             this.ResumeLayout(false);

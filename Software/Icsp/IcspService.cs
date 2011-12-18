@@ -5,6 +5,9 @@ namespace ApProg.Icsp
 {
     public interface IIcspService
     {
+        bool IsConnected { get; }
+        bool Connect(ComPortParams portParams);
+        void Disconnect();
         bool EnterIcsp(uint code);
         bool ExitIcsp();
         bool SendSix(uint instr);
@@ -38,15 +41,12 @@ namespace ApProg.Icsp
             myPort = new SerialPort("COM1");
         }
 
-        public bool Connect()
+        public bool Connect(ComPortParams portParams)
         {
-            // ToDo: Provide configuration dialog...
-            myPort.BaudRate = 57600;
-            myPort.DataBits = 8;
-            myPort.Parity = Parity.None;
-            myPort.ReadTimeout = 500;
-            myPort.ReadBufferSize = 4;
-            myPort.WriteBufferSize = 4;
+            if(myPort.IsOpen)
+                myPort.Close();
+
+            portParams.ConfigurePort(myPort);
             myPort.Open();
 
             myPort.DiscardInBuffer();

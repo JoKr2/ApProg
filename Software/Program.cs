@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using ApProg.Icsp;
-using ApProg.UI;
+using ApProg.UI.Presenters;
+using ApProg.UI.Views;
+using ApProg.Utilities;
 
 namespace ApProg
 {
@@ -13,10 +15,13 @@ namespace ApProg
         [STAThread]
         static void Main()
         {
+            AppDomain.CurrentDomain.UnhandledException += OnErrorOccured;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            AppDomain.CurrentDomain.UnhandledException += OnErrorOccured;
-            Application.Run(new Form1(new IcspService()));
+
+            ProgrammerView screen = new ProgrammerView();
+            new ProgrammerPresenter(screen, new IcspService());
+            Application.Run(screen);
         }
 
         /// <summary>
