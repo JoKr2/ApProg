@@ -1,0 +1,14 @@
+﻿<Window x:Class="ApProg.UserInterface.Shell.ProgressDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ProgressDialog" Height="80" Width="300" WindowStyle="None" WindowStartupLocation="CenterOwner" 
+        ShowInTaskbar="False" ResizeMode="NoResize" Background="{DynamicResource NormalBrush}">
+    <GroupBox Header="Please wait..." >
+        <Grid>
+            <ProgressBar Name="myProgressBar" Margin="5" Value="50"/>
+            <TextBlock Name="myMessage" Margin="15" VerticalAlignment="Center" Foreground="Black">
+                <Run>Writing 64 Instructions at: 0xXXXXXX</Run>
+            </TextBlock>
+        </Grid>
+    </GroupBox>
+</Window>

@@ -1,0 +1,21 @@
+﻿<Window x:Class="ApProg.UserInterface.Shell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Programmer="clr-namespace:ApProg.UserInterface.Programmer" Title="ApProgrammer" Height="500" Width="800">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Background="{DynamicResource SelectedBackgroundBrush}">
+            <Menu Name="MenuPane"  DockPanel.Dock="Left" Background="{DynamicResource SelectedBackgroundBrush}">
+                <MenuItem Header ="_File">
+                    <MenuItem Header ="_Open Hex File" Command="{Binding OpenFileCmd}" IsEnabled="{Binding MenuEnabled}" />
+                    <MenuItem Header ="_Save Hex File" Command="{Binding SaveFileCmd}" IsEnabled="{Binding MenuEnabled}" />
+                    <Separator />
+                    <MenuItem Header="_Close" Command="{Binding CloseApplicationCmd}" />
+                </MenuItem>
+                <MenuItem Header="_Help" Command="{Binding HardwareInfoCmd}"/>
+            </Menu>
+        </DockPanel>
+        <StatusBar DockPanel.Dock="Bottom" Background="{DynamicResource SelectedBackgroundBrush}">ToDo...</StatusBar>
+        <Programmer:NavigationScreen x:Name="NavPanel"  DockPanel.Dock="Left" MinWidth="250" />
+        <TabControl Name="myTabContainer" />
+    </DockPanel>
+</Window>

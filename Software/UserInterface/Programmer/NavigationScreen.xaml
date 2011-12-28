@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ApProg.UserInterface.Programmer.NavigationScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+        <GroupBox Header="Select Programmer" >
+        <StackPanel>
+            <ComboBox>
+                <ComboBoxItem IsSelected="True">Basic AVR Based PIC Programmer</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Padding="3" Background="{DynamicResource LightBrush}">
+                   <Hyperlink Command="{Binding HardwareInfoCmd}">Hardware details...</Hyperlink>
+            </TextBlock>
+            <GroupBox Header="Connection Details" Background="{DynamicResource ToolBarButtonHover}">
+                <Grid DataContext="{Binding ConnectionParams}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock>Port:</TextBlock>
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding AvailablePorts}" SelectedValue="{Binding PortId}"></ComboBox>
+                    <TextBlock Grid.Row="1">Baud Rate:</TextBlock>
+                    <ComboBox Name="cmb" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding BaudRates}" SelectedValue="{Binding BaudRate}"></ComboBox>
+                    <TextBlock Grid.Row="2">Data Bits:</TextBlock>
+                    <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding DataValues}" SelectedValue="{Binding DataBits}"></ComboBox>
+                    <TextBlock Grid.Row="3">Parity:</TextBlock>
+                    <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding AvailableParity}" SelectedValue="{Binding Parity}"></ComboBox>
+                    <TextBlock Grid.Row="4">Stop Bits:</TextBlock>
+                    <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding AvailableStopBits}" SelectedValue="{Binding StopBits}"></ComboBox>
+                </Grid>
+            </GroupBox>
+            <Button Margin="0,4" FontSize="14" Content="{Binding ConnectionState}" Command="{Binding ConnectionCmd}" />
+        </StackPanel>
+    </GroupBox>
+</UserControl>

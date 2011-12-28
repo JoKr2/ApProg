@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ApProg.UI {
+namespace ApProg.UserInterface {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ApProg.UI {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ApProg.UI.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ApProg.UserInterface.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,20 @@ namespace ApProg.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Device has been erased..
+        ///   Looks up a localized string similar to Connect.
         /// </summary>
-        internal static string DeviceErasedMsg {
+        internal static string Connect {
             get {
-                return ResourceManager.GetString("DeviceErasedMsg", resourceCulture);
+                return ResourceManager.GetString("Connect", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You need to load a hex file first....
+        ///   Looks up a localized string similar to Disconnect.
         /// </summary>
-        internal static string HexFileRequestMsg {
+        internal static string Disconnect {
             get {
-                return ResourceManager.GetString("HexFileRequestMsg", resourceCulture);
+                return ResourceManager.GetString("Disconnect", resourceCulture);
             }
         }
     }

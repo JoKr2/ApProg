@@ -36,7 +36,7 @@ namespace ApProg.Icsp
             myIcsp.SendSix(0x200FF0) &&
             myIcsp.SendSix(0x880190) &&
             myIcsp.SendSix(0x200006) &&
-            
+
             myIcsp.SendSix(0x207847) &&
             myIcsp.SendSix(0x000000) &&
 
@@ -45,15 +45,15 @@ namespace ApProg.Icsp
             myIcsp.SendSix(0x000000) &&
             myIcsp.SendRegout(out devId) &&
             myIcsp.SendSix(0x000000) &&
-            
+
             myIcsp.SendSix(0xBA0BB6) &&
             myIcsp.SendSix(0x000000) &&
             myIcsp.SendSix(0x000000) &&
             myIcsp.SendRegout(out revId) &&
             myIcsp.SendSix(0x000000) &&
-            
+
             myIcsp.ExitIcsp())
-                return string.Format("Device Id: 0x{0:X4}\r\n Revision Id: {1:X4}\r\n", devId, revId);
+                return string.Format("Device Id: 0x{0:X4}\r\nRevision Id: {1:X4}\r\n", devId, revId);
             return "Device did not respond correctly";
         }
 
@@ -93,7 +93,7 @@ namespace ApProg.Icsp
             throw new NotImplementedException("ToDo...");
         }
 
-        public void WriteFlash(IEnumerable<uint> instrs, Action<string> act)
+        public void WriteFlash(IEnumerable<uint> instrs, Action<int, string> act)
         {
             List<uint> instructions = new List<uint>(instrs);
             EnterIcsp();
@@ -103,9 +103,8 @@ namespace ApProg.Icsp
                 // write only pages which contains some instructions
                 if (instr.Any(inst => inst != 0x00FFFFFF))
                 {
-                    act(string.Format("Writing 64 instructions at: 0x{0:X8}...", index*2));
-                    WriteInstructions(index*2, instr, act);
-                    act(string.Format(" Done...\r\n"));
+                    act(index*100/instructions.Count, string.Format("Writing 64 instructions at: 0x{0:X8}...", index*2));
+                    WriteInstructions(index*2, instr);
                 }
             }
             ExitIcsp();
@@ -154,16 +153,16 @@ namespace ApProg.Icsp
         /// Writes instructions according to: 3.6 Writing Code Memory...
         /// </summary>
         /// <returns>message</returns>
-        public void WriteInstructions(int address, IList<uint> inst, Action<string> act)
+        public void WriteInstructions(int address, IList<uint> inst)
         {
             // Step 2: Set the NVMCON to program 64 instr. words
             myIcsp.SendSix(0x24001A);
             myIcsp.SendSix(0x883B0A);
 
             // Step 3:
-            myIcsp.SendSix(0x200000 | ((uint)address).Msb() << 4);
+            myIcsp.SendSix(0x200000 | ((uint) address).Msb() << 4);
             myIcsp.SendSix(0x880190);
-            myIcsp.SendSix(0x200007 | ((uint)address).Lsw() << 4);
+            myIcsp.SendSix(0x200007 | ((uint) address).Lsw() << 4);
 
             // Step 4-6: Write 64 (16*4 packed) instructions
             for (int index = 0; index < 64; index += 4)
@@ -175,7 +174,7 @@ namespace ApProg.Icsp
                 myIcsp.SendSix(0x200004 | (inst[index + 3].Msb() << 8 | inst[index + 2].Msb()) << 4);
                 myIcsp.SendSix(0x200005 | inst[index + 3].Lsw() << 4);
 
-                myIcsp.SendSix(0xEB0300); 
+                myIcsp.SendSix(0xEB0300);
                 myIcsp.SendSix(0x000000);
                 for (int latch = 0; latch < 2; latch++)
                 {
@@ -210,8 +209,7 @@ namespace ApProg.Icsp
                 myIcsp.SendSix(0x000000);
                 myIcsp.SendRegout(out nvmcon);
                 myIcsp.SendSix(0x000000);
-                act(string.Format(".<poll>"));
-                Thread.Sleep(500);
+                Thread.Sleep(50);
             } while ((nvmcon & 0x8000) == 0x8000);
 
             // Reset device
